@@ -6,8 +6,12 @@ exports.selectAllUsuarios = function (callback) {
   UsuariosModel.selectAllUsuarios(callback);
 };
 
-exports.insertUsuarios = function (nomeUsuario, email, tipo, senha, foto) {
-  UsuariosModel.insertUsuarios(nomeUsuario, email, tipo, senha, foto)
+exports.insertUsuarios = function (nomeUsuario, email, senha) {
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(senha, salt, function (err, hash) {
+      UsuariosModel.insertUsuarios(nomeUsuario, email, hash)
+    });
+  });
 }
 
 exports.salvarFotos = async function (fotos) {

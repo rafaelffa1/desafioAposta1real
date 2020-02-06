@@ -13,7 +13,10 @@ class Login extends React.Component {
       continuarLogado: false,
       esqueciSenha: false,
       cadastrarUsuario: false,
-      isGoing: true
+      isGoing: true,
+      abrirAlerta: false,
+      mensagemAlerta: '',
+      tipoDeAlerta: 'alert-danger'
     }
     this.verificarLogin(localStorage.getItem("token_login_portec"))
   }
@@ -29,6 +32,14 @@ class Login extends React.Component {
         }
       }
     })
+  }
+
+  onChangeConfirmarSenha = (confirmarSenha) => {
+    this.setState({ confirmarSenha: confirmarSenha.target.value });
+  }
+
+  onChangeNome = (nomeSobrenome) => {
+    this.setState({ nomeSobrenome: nomeSobrenome.target.value });
   }
 
   onChangeEmail = (email) => {
@@ -57,15 +68,15 @@ class Login extends React.Component {
       },
       success: (resp) => {
         if (resp.result === false) {
-          alert('Email ou senha incorreto');
+          this.openAlertaErro('Email ou senha incorreto');
         } else {
           let objectConvertB64 = '154stj%' + window.btoa(JSON.stringify({ id: resp.usuario.ID, nome: resp.usuario.nome_usuario, foto: resp.usuario.foto }));
           localStorage.setItem("token_login_desafio", resp.result);
           localStorage.setItem("user_desafio", window.btoa(objectConvertB64));
           window.location.href = `http://${window.location.host}/desafio`
         }
-      }
-    })
+      },
+    });
   }
 
   onClickirParaTelaCadastrar = (e) => {
@@ -88,7 +99,38 @@ class Login extends React.Component {
     });
   }
 
-  onClickCadastrar = () => { }
+  onClickCadastrar = (e) => {
+    const {
+      senha,
+      email,
+      confirmarSenha,
+      nomeSobrenome,
+    } = this.state;
+    e.preventDefault();
+
+    if (email === '' || nomeSobrenome === '' || senha === '' || confirmarSenha === '') {
+      this.openAlertaErro('Preencha todos os campos do formulario');
+    } else {
+      if (senha === confirmarSenha) {
+        $.ajax({
+          type: "POST",
+          url: `http://${window.location.host}/usuario/cadastrar`,
+          data: {
+            nomeSobrenome: nomeSobrenome,
+            email: email,
+            senha: senha
+          },
+          success: (resp) => {
+            this.openAlertaSucesso('Usuário cadastrado com sucesso!');
+            this.voltarParaTelaDeLogin();
+          },
+        });
+      } else {
+        this.openAlertaErro('A senha não está igual ao campo de confirmar senha');
+      }
+    }
+
+  }
 
   onChangeContinuarLogado = () => {
 
@@ -100,8 +142,41 @@ class Login extends React.Component {
       [name]: value
     });
 
-    console.log('testet')
-    // this.setState({ continuarLogado: !this.state.continuarLogado });
+    this.setState({ continuarLogado: !this.state.continuarLogado });
+  }
+
+  openAlertaErro = (mensagem) => {
+    this.setState({
+      abrirAlerta: true,
+      mensagemAlerta: mensagem,
+      tipoDeAlerta: 'alert-danger'
+    });
+
+    setTimeout(() => {
+      this.setState({
+        abrirAlerta: false,
+      })
+    }, 3000);
+  }
+
+  openAlertaSucesso = (mensagem) => {
+    this.setState({
+      abrirAlerta: true,
+      mensagemAlerta: mensagem,
+      tipoDeAlerta: 'alert-success'
+    });
+    setTimeout(() => {
+      this.setState({
+        abrirAlerta: false,
+      })
+    }, 3000);
+  }
+
+  voltarParaTelaDeLogin = () => {
+    this.setState({
+      cadastrarUsuario: false,
+      esqueciSenha: false
+    })
   }
 
   renderContainerLogin = () => {
@@ -124,25 +199,25 @@ class Login extends React.Component {
 					</span>
 
           <div className="wrap-input100 validate-input">
-            <input style={nomeSobrenome !== '' ? { height: 48 } : {}} value={nomeSobrenome} className="input100" onChange={(e) => this.onChangeEmail(e)} type="text" name="nomesobrenome" />
+            <input style={nomeSobrenome !== '' ? { height: 48 } : {}} value={nomeSobrenome} className="input100" onChange={this.onChangeNome} type="text" name="nomesobrenome" />
             <span className="focus-input100"></span>
             <span className="label-input100" style={nomeSobrenome !== '' ? { top: 14, fontSize: 13 } : {}} >Nome e sobrenome</span>
           </div>
 
           <div className="wrap-input100 validate-input">
-            <input style={email !== '' ? { height: 48 } : {}} value={email} className="input100" onChange={(e) => this.onChangeEmail(e)} type="text" name="email" />
+            <input style={email !== '' ? { height: 48 } : {}} value={email} className="input100" onChange={this.onChangeEmail} type="text" name="email" />
             <span className="focus-input100"></span>
             <span className="label-input100" style={email !== '' ? { top: 14, fontSize: 13 } : {}}>Email</span>
           </div>
 
           <div className="wrap-input100 validate-input">
-            <input style={senha !== '' ? { height: 48 } : {}} value={senha} className="input100" onChange={(e) => this.onChangeSenha(e)} type="password" name="pass" />
+            <input style={senha !== '' ? { height: 48 } : {}} value={senha} className="input100" onChange={this.onChangeSenha} type="password" name="pass" />
             <span className="focus-input100"></span>
             <span className="label-input100" style={senha !== '' ? { top: 14, fontSize: 13 } : {}}>Senha</span>
           </div>
 
           <div className="wrap-input100 validate-input">
-            <input style={confirmarSenha !== '' ? { height: 48 } : {}} value={confirmarSenha} className="input100" onChange={(e) => this.onChangeSenha(e)} type="password" name="pass2" />
+            <input style={confirmarSenha !== '' ? { height: 48 } : {}} value={confirmarSenha} className="input100" onChange={this.onChangeConfirmarSenha} type="password" name="pass2" />
             <span className="focus-input100"></span>
             <span className="label-input100" style={confirmarSenha !== '' ? { top: 14, fontSize: 13 } : {}}>Confirme a senha</span>
           </div>
@@ -244,8 +319,18 @@ class Login extends React.Component {
   }
 
   render() {
+    const { mensagemAlerta, abrirAlerta, tipoDeAlerta } = this.state;
     return (
-      <div>{this.renderContainerLogin()}</div>
+      <div>
+        {abrirAlerta === true &&
+          <div className="row">
+            <div className={`alert w-100 ${tipoDeAlerta}`} role="alert">
+              {mensagemAlerta}
+            </div>
+          </div>
+        }
+        {this.renderContainerLogin()}
+      </div>
     );
   }
 }

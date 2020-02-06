@@ -41,28 +41,39 @@ router.get("/desafio", function (req, res) {
 
 
 router.post("/acao/login", (req, res) => {
+  let resultado = false;
 
   callbackResultForToken = (result, usuario) => {
     if (result === true) {
       callbackResult = (hash, usuario) => {
         res.json({ result: hash, usuario });
       }
-      UsuarioController.loginUsuario(usuario, callbackResult) 
+      UsuarioController.loginUsuario(usuario, callbackResult)
+    } else {
+      res.json({ result: false })
     }
   }
 
   function callback(rows) {
     for (let index = 0; index < rows.length; index++) {
       const element = rows[index];
-      bcrypt.compare(req.body.senha, element.senha, function (err, res) {
-        if (res === true) {
-          if (req.body.email === element.email) {
+      if (req.body.email === element.email) {
+        resultado = true
+        bcrypt.compare(req.body.senha, element.senha, function (err, res) {
+          if (res === true) {
             callbackResultForToken(true, element);
+          } else {
+            callbackResultForToken(false, element);
           }
-        }
-      });
+        });
+        break;
+      }
     }
+
+    resultado === false && res.json({ result: false });
+
   }
+
   UsuarioController.selectAllUsuarios(callback);
 });
 
@@ -87,21 +98,8 @@ router.post("/verificar_login", (req, res) => {
 });
 
 router.post("/usuario/cadastrar", async function (req, res) {
-  let nomeFoto = '';
-  if (req.body.foto === undefined) {
-    nomeFoto = 'defaultUsuario.png';
-  } else {
-    await UsuarioController.salvarFotos(req.body.foto);
-    nomeFoto = req.body.foto[0].name;
-  }
-  UsuarioController.insertUsuarios(
-    req.body.nome,
-    req.body.email,
-    req.body.tipo,
-    req.body.senha,
-    nomeFoto
-  )
-  res.sendStatus(200)
+  UsuarioController.insertUsuarios(req.body.nomeSobrenome, req.body.email, req.body.senha);
+  res.sendStatus(200);
 });
 
 router.post("/jogo/cadastrar", function (req, res) {

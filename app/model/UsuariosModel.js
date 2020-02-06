@@ -3,16 +3,10 @@ const path = require("path");
 const dbPath = path.resolve(__dirname, "../db/sample.db");
 let db = new sqlite3.Database(dbPath);
 
-exports.insertUsuarios = function (
-  nome_usuario,
-  email,
-  tipo,
-  senha,
-  foto
-) {
+exports.insertUsuarios = function (nome_usuario, email, senha) {
   db.run(
-    `INSERT INTO usuarios (nome_usuario,email,tipo,senha,foto, acesso) VALUES(?,?,?,?,?,?)`,
-    [nome_usuario, email, tipo, senha, foto, false],
+    `INSERT INTO usuarios (nome_usuario ,email , senha, coins, pontucao,foto, tipo_usuario, acessoToken) VALUES(?,?,?,?,?,?,?,?)`,
+    [nome_usuario, email, senha, 0, 0, 'img/perfil_padrao.jpg', 1, ''],
     function (err) {
       if (err) {
         return console.log(err.message);
