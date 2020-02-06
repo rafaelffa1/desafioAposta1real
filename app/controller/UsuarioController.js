@@ -24,7 +24,6 @@ exports.deleteUsuarios = async function (idProduto) {
 exports.loginUsuario = async function (usuario, callbackReturnHash) {
   const saltRounds = 10;
   const tokenLogin = Math.random() + 2;
-  let hashLogin = '';
   bcrypt.genSalt(saltRounds, function (err, salt) {
     bcrypt.hash(String(tokenLogin), salt, function (err, hash) {
       UsuariosModel.loginUsuario(usuario, String(tokenLogin));

@@ -42,7 +42,7 @@ exports.deleteUsuarios = function (idProduto) {
 }
 
 exports.loginUsuario = function (usuario, tokenLogin) {
-  db.run(`UPDATE usuarios SET acesso = ${tokenLogin} WHERE ID == ${usuario.ID}`, function (err) {
+  db.run(`UPDATE usuarios SET acessoToken = ${tokenLogin} WHERE ID == ${usuario.ID}`, function (err) {
     if (err != null) {
       console.log(err);
     }

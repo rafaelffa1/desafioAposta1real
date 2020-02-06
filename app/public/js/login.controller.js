@@ -47,6 +47,7 @@ class Login extends React.Component {
   onCLickLogin = (e) => {
     const { email, senha } = this.state;
     e.preventDefault();
+
     $.ajax({
       type: "POST",
       url: `http://${window.location.host}/acao/login`,
@@ -59,9 +60,9 @@ class Login extends React.Component {
           alert('Email ou senha incorreto');
         } else {
           let objectConvertB64 = '154stj%' + window.btoa(JSON.stringify({ id: resp.usuario.ID, nome: resp.usuario.nome_usuario, foto: resp.usuario.foto }));
-          localStorage.setItem("token_login_portec", resp.result);
-          localStorage.setItem("user_portec", window.btoa(objectConvertB64));
-          window.location.href = `http://${window.location.host}/desafio?token=${resp.result}`
+          localStorage.setItem("token_login_desafio", resp.result);
+          localStorage.setItem("user_desafio", window.btoa(objectConvertB64));
+          window.location.href = `http://${window.location.host}/desafio`
         }
       }
     })
@@ -209,7 +210,7 @@ class Login extends React.Component {
             </button>
           </div>
           <div className="container-login100-form-btn">
-            <button className="login100-form-btn">
+            <button onClick={(e) => this.onCLickLogin(e)} className="login100-form-btn">
               Login
             </button>
           </div>

@@ -40,24 +40,29 @@ router.get("/desafio", function (req, res) {
 // ===================== Ações ============================================
 
 
-router.post("acao/login", (req, res) => {
-  let result = false
+router.post("/acao/login", (req, res) => {
 
-  callbackResult = (result) => {
+  callbackResultForToken = (result, usuario) => {
     if (result === true) {
-      res.json({ result })
+      callbackResult = (hash, usuario) => {
+        res.json({ result: hash, usuario });
+      }
+      UsuarioController.loginUsuario(usuario, callbackResult) 
     }
   }
 
   function callback(rows) {
     for (let index = 0; index < rows.length; index++) {
       const element = rows[index];
-      bcrypt.compare(String(element.acesso), req.body.token, function (err, res) {
-        callbackResult(res)
+      bcrypt.compare(req.body.senha, element.senha, function (err, res) {
+        if (res === true) {
+          if (req.body.email === element.email) {
+            callbackResultForToken(true, element);
+          }
+        }
       });
     }
   }
-
   UsuarioController.selectAllUsuarios(callback);
 });
 
