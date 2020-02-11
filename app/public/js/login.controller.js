@@ -280,13 +280,14 @@ class Login extends React.Component {
           </div>
 
           <div className="container-login100-form-btn" style={{ marginBottom: 5 }}>
-            <button style={{ background: `#8990c7` }} onClick={(e) => this.onClickirParaTelaCadastrar(e)} className="login100-form-btn">
-              Nova conta
-            </button>
-          </div>
-          <div className="container-login100-form-btn">
             <button onClick={(e) => this.onCLickLogin(e)} className="login100-form-btn">
               Login
+            </button>
+          </div>
+
+          <div className="container-login100-form-btn">
+            <button style={{ background: `#8990c7` }} onClick={(e) => this.onClickirParaTelaCadastrar(e)} className="login100-form-btn">
+              Nova conta
             </button>
           </div>
 

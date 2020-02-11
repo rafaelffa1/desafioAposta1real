@@ -1,1 +1,15 @@
 /* Add here all your CSS customizations */
+.jogosGrafico::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+.jogosGrafico::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+.jogosGrafico::-webkit-scrollbar-thumb {
+  background: #0088cc;
+}
+
+.nav-link {
+  cursor: pointer;
+}
