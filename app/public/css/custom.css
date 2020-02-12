@@ -1,15 +1,161 @@
 /* Add here all your CSS customizations */
+
+.jogosGrafico {
+  display: -webkit-box;
+  overflow-x: overlay;
+  overflow-y: hidden;
+  border-right: 17px solid #08c;
+}
+
 .jogosGrafico::-webkit-scrollbar-track {
   background-color: #F4F4F4;
+  border-radius: 9px;
 }
+
 .jogosGrafico::-webkit-scrollbar {
   width: 6px;
   background: #F4F4F4;
 }
+
 .jogosGrafico::-webkit-scrollbar-thumb {
   background: #0088cc;
 }
 
 .nav-link {
   cursor: pointer;
+}
+
+.bxStatusDashboard {
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+
+.bxImgStatusBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100px !important;
+}
+
+.imgStatusMoney {
+  height: 45px;
+  filter: opacity(0.6);
+}
+
+.textTitleMoneyStatusBar {
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 9px;
+}
+
+.sifraoMoneyStatus {
+  font-size: 13px;
+  top: 5px;
+  position: absolute;
+  left: -5px;
+}
+
+.textStatusMoney {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 9px;
+}
+
+.imgStatusPoint {
+  height: 70px;
+  filter: opacity(0.6);
+}
+
+.titleTextStatusPoint {
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 9px;
+}
+
+.textStatusPoint {
+  font-size: 45px;
+  font-weight: bold;
+  margin-left: 9px;
+}
+
+.imgStatusRank {
+  height: 45px;
+  filter: opacity(0.6);
+}
+
+.titleTextStatusRank {
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 9px;
+}
+
+.textStatusRank {
+  font-size: 45px;
+  font-weight: bold;
+  margin-left: 9px;
+}
+
+.rowGraficoDashboard {
+  margin-top: 2em;
+  height: 310px;
+  padding: 1em
+}
+
+.bxInternalGraficoDashboard {
+  background-color: aliceblue;
+  border-radius: 1em;
+  height: auto !important;
+}
+
+.bxNomePrecoPremicao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textPremiacao {
+  font-size: 11px;
+  line-height: 12px;
+}
+
+.bxAcertos {
+  background-color: aqua;
+  height: 16em;
+  margin: 1em;
+  border-radius: 4px;
+}
+
+.bxInternaAcertos {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.textAcertos {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.textTituloAcerto {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.bxColunaGrafico {
+  width: 95px;
+  margin-right: 25px;
+}
+
+.bxTamanhoColunaGrafico {
+  background-color: aqua;
+  margin: 1em;
+  border-radius: 4px;
+  background-size: 14px 68px;
+  position: absolute;
+  bottom: 0px;
+  width: 68px;
+}
+
+.bxAcertosFotosColunas {
+  height: 16em;
+  position: relative;
 }
