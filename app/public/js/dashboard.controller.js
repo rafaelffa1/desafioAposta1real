@@ -2,6 +2,9 @@
 
 const e = React.createElement;
 
+let user_desafio = localStorage.getItem('user_desafio');
+console.log(user_desafio);
+
 class Principal extends React.Component {
   render() {
     return (

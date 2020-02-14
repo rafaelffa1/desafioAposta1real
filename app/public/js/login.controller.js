@@ -1,6 +1,8 @@
 'use strict';
 
 const e = React.createElement;
+const userLogged = getUserLogged();
+verifyUserLogged(userLogged);
 
 class Login extends React.Component {
   constructor(props) {
@@ -259,19 +261,6 @@ class Login extends React.Component {
           </div>
 
           <div className="flex-sb-m w-full p-t-3 p-b-32">
-            <div className="contact100-form-checkbox">
-              {/* <input className="input-checkbox100" onChange={this.onChangeContinuarLogado} checked={continuarLogado} type="checkbox" />
-               */}
-              <input
-                name="isGoing"
-                type="checkbox"
-                checked={this.state.isGoing}
-                onChange={this.onChangeContinuarLogado} />
-              <label style={{ color: 'gray', fontSize: 13, float: 'right', marginLeft: 4, marginTop: 4 }}>
-                Continuar Logado?
-							</label>
-            </div>
-
             <div>
               <a href="#" onClick={(e) => this.onClickEsqueciSenha(e)} className="txt1">
                 Esqueceu a senha?

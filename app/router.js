@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const ProdutoController = require('./controller/ProdutoController');
+const JogoController = require('./controller/JogoController');
 const UsuarioController = require('./controller/UsuarioController');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
@@ -78,23 +78,12 @@ router.post("/acao/login", (req, res) => {
 });
 
 router.post("/verificar_login", (req, res) => {
-  let result = false
 
   callbackResult = (result) => {
-    if (result === true) {
-      res.json({ result })
-    }
+    res.json({ result })
   }
 
-  function callback(rows) {
-    for (let index = 0; index < rows.length; index++) {
-      const element = rows[index];
-      bcrypt.compare(String(element.acesso), req.body.token, function (err, res) {
-        callbackResult(res)
-      });
-    }
-  }
-  UsuarioController.selectAllUsuarios(callback);
+  UsuarioController.verificarLogin(req.body.token, callbackResult);
 });
 
 router.post("/usuario/cadastrar", async function (req, res) {
@@ -103,18 +92,14 @@ router.post("/usuario/cadastrar", async function (req, res) {
 });
 
 router.post("/jogo/cadastrar", function (req, res) {
-  let nomesDasFotos = '';
-  ProdutoController.salvarFotos(req.body.fotos);
-  req.body.fotos.map(element => {
-    nomesDasFotos = nomesDasFotos + element.name + ','
-  })
-  ProdutoController.insertProdutos(
-    req.body.nome,
-    req.body.categoria,
-    req.body.descricao,
-    nomesDasFotos
+  JogoController.insertJogos(
+    req.body.nome_time1,
+    req.body.nome_time2,
+    req.body.id_usuario,
+    req.body.status,
+    req.body.dataHora
   )
-  res.sendStatus(200)
+  res.sendStatus(200);
 });
 
 router.get("/jogo/listar", (req, res) => {
@@ -128,7 +113,7 @@ router.get("/jogo/listar/:id", (req, res) => {
   function callback(row) {
     res.json(row);
   }
-  ProdutoController.selectIdProduto(callback, req.params.id);
+  JogoController.selectIdJogos(callback, req.params.id);
 });
 
 router.get("/usuario/listar", (req, res) => {

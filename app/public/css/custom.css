@@ -159,3 +159,28 @@
   height: 16em;
   position: relative;
 }
+
+.imgListaJogo {
+  height: 100px;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+.bxDosJogos {
+  height: 400px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#main {
+  display: none;
+}
+
+.bxFotoDoJogador {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 5px solid white;
+  background-size: cover !important;
+  background-position: center !important;
+}

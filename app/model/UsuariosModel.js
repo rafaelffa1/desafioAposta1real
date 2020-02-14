@@ -36,7 +36,9 @@ exports.deleteUsuarios = function (idProduto) {
 }
 
 exports.loginUsuario = function (usuario, tokenLogin) {
-  db.run(`UPDATE usuarios SET acessoToken = ${tokenLogin} WHERE ID == ${usuario.ID}`, function (err) {
+  console.log('daopskdpasodkas')
+  console.log(tokenLogin);
+  db.run("UPDATE usuarios SET acessoToken ='"  + tokenLogin + "' WHERE ID ==" + usuario.ID , function (err) {
     if (err != null) {
       console.log(err);
     }
