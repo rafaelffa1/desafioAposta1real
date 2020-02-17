@@ -2,7 +2,6 @@
 
 const e = React.createElement;
 const userLogged = getUserLogged();
-console.log(userLogged);
 verifyUserLogged(userLogged, 'listaJogo');
 
 class ListaJogos extends React.Component {
@@ -85,7 +84,7 @@ class ListaJogos extends React.Component {
         data: {
           nome_time1: time1,
           nome_time2: time2,
-          id_usuario: 1,
+          id_usuario: userLogged.userLogadoObject.id,
           status: 0,
           dataHora: this.recuperarDataHoraAgora()
         },

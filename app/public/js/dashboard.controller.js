@@ -1,9 +1,7 @@
 'use strict';
 
 const e = React.createElement;
-
 let user_desafio = localStorage.getItem('user_desafio');
-console.log(user_desafio);
 
 class Principal extends React.Component {
   render() {
@@ -19,13 +17,13 @@ class Principal extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 col-sm-12 mb-4">
             <div className="w-100 h-100 bxStatusDashboard">
-              <div className="row">
-                <div className="col-md-4 h-100 p-0 bxImgStatusBox">
+              <div className="row m-0 p-3" style={{ flexDirection: 'row' }}>
+                <div style={{ width: '30%', textAlign: 'center' }}>
                   <img className="imgStatusMoney" src="img/money_icon.png" alt="money" />
                 </div>
-                <div className="col-md-8 pl-2 pt-3">
+                <div style={{ width: '70%', textAlign: 'left' }}>
                   <div>
                     <span className="textTitleMoneyStatusBar">Quant. Dinheiro </span>
                   </div>
@@ -37,13 +35,14 @@ class Principal extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-md-4">
+
+          <div className="col-md-4 col-sm-12 mb-4">
             <div className="w-100 h-100 bxStatusDashboard">
-              <div className="row">
-                <div className="col-md-6 h-100 p-0 bxImgStatusBox">
-                  <img className="imgStatusPoint" src="img/point_icon.png" alt="money" />
+              <div className="row m-0 p-3" style={{ flexDirection: 'row' }}>
+                <div style={{ width: '30%', textAlign: 'center' }}>
+                  <img className="imgStatusPoint" src="img/point_icon.png" alt="star" />
                 </div>
-                <div className="col-md-6 pl-2 pt-3">
+                <div style={{ width: '70%', textAlign: 'left' }}>
                   <div style={{ marginLeft: '9px' }}>
                     <span className="titleTextStatusPoint">Pontuação </span>
                   </div>
@@ -54,13 +53,14 @@ class Principal extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-md-4">
+
+          <div className="col-md-4 col-sm-12 mb-4">
             <div className="w-100 h-100 bxStatusDashboard">
-              <div className="row">
-                <div className="col-md-5 h-100 p-0 bxImgStatusBox">
-                  <img className="imgStatusRank" src="img/money_icon.png" alt="money" />
+              <div className="row m-0 p-3" style={{ flexDirection: 'row' }}>
+                <div style={{ width: '30%', textAlign: 'center' }}>
+                  <img className="imgStatusRank" src="img/rank_icon.png" alt="rank" />
                 </div>
-                <div className="col-md-7 pl-4 pt-3">
+                <div style={{ width: '70%', textAlign: 'left' }}>
                   <div>
                     <span className="titleTextStatusRank">Posi. Rank</span>
                   </div>
@@ -71,6 +71,45 @@ class Principal extends React.Component {
                 </div>
               </div>
             </div>
+          </div>
+
+        </div>
+
+        <div className="rowGraficoDashboardMobile">
+          <div style={{ height: 'auto', background: 'aliceblue', borderRadius: '8px' }}>
+            <div className="pt-5" style={{ display: 'flex' }}>
+              <div className="pl-3 pt-1" style={{ background: 'red', width: '21em', height: '32px' }}>
+                <span style={{ color: 'white' }}>Premiação de <strong>1000,00</strong> |  <strong>15</strong> <small>ACERTOS</small> </span>
+              </div>
+              <div className="ml-2"><img height="30" width="30" src="https://data.whicdn.com/images/220638643/original.gif" alt="star" /></div>
+            </div>
+
+            <div>
+              <div className="pt-5" style={{ display: 'flex' }}>
+                <div className="pl-3 pt-1" style={{ background: 'red', width: '10em', height: '32px' }}>
+                </div>
+                <div className="ml-2"><img height="30" width="30" src="https://data.whicdn.com/images/220638643/original.gif" alt="star" /></div>
+              </div>
+              <div className="pt-5" style={{ display: 'flex' }}>
+                <div className="pl-3 pt-1" style={{ background: 'red', width: '11em', height: '32px' }}>
+                </div>
+                <div className="ml-2"><img height="30" width="30" src="https://data.whicdn.com/images/220638643/original.gif" alt="star" /></div>
+              </div>
+              <div className="pt-5" style={{ display: 'flex' }}>
+                <div className="pl-3 pt-1" style={{ background: 'red', width: '19em', height: '32px' }}>
+                </div>
+                <div className="ml-2"><img height="30" width="30" src="https://data.whicdn.com/images/220638643/original.gif" alt="star" /></div>
+              </div>
+              <div className="pt-5" style={{ display: 'flex' }}>
+                <div className="pl-3 pt-1" style={{ background: 'red', width: '6em', height: '32px' }}>
+                </div>
+                <div className="ml-2"><img height="30" width="30" src="https://data.whicdn.com/images/220638643/original.gif" alt="star" /></div>
+              </div>
+
+              
+
+            </div>
+
           </div>
         </div>
 
