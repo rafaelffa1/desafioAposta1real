@@ -75,6 +75,9 @@
 						<aside class="sidebar mt-2" id="sidebar">
 							<ul class="nav nav-list flex-column mb-5">
 								<li class="nav-item">
+									<a class="nav-link text-dark active" id="botaoAdmin" onclick="myFunction(3)">Aréa do administrador</a>
+								</li>
+								<li class="nav-item">
 									<a class="nav-link text-dark active" id="dashboard-btn" onclick="myFunction(0)">Dashboard</a>
 								</li>
 								<li class="nav-item">
@@ -88,6 +91,7 @@
 
 					</div>
 					<div class="col-lg-9">
+						<div id="telaadmin"></div>
 						<div id="listajogosusuario"></div>
 						<div id="dashboard"></div>
 					</div>
@@ -176,26 +180,56 @@
 					var meusjogosbtn = document.getElementById('meusjogos-btn');
 					meusjogosbtn.className = ' nav-link';
 
+					var meusjogosbtn = document.getElementById('botaoAdmin');
+					meusjogosbtn.className = 'nav-link';
+
 					var dashboardButtonMenu = document.getElementById('dashboard-btn');
 					dashboardButtonMenu.className += 'text-dark active';
 
 					document.getElementById('listajogosusuario').style.display = "none";
+					document.getElementById('telaadmin').style.display = "none";
 					document.getElementById('dashboard').style.display = "block";
+
 					break;
+
 				case 1:
 					var dashboardButtonMenu = document.getElementById('dashboard-btn');
 					dashboardButtonMenu.className = 'nav-link';
+
+					var meusjogosbtn = document.getElementById('botaoAdmin');
+					meusjogosbtn.className = 'nav-link';
 
 					var meusjogosbtn = document.getElementById('meusjogos-btn');
 					meusjogosbtn.className += 'text-dark active';
 
 					document.getElementById('dashboard').style.display = "none";
+					document.getElementById('telaadmin').style.display = "none";
 					document.getElementById('listajogosusuario').style.display = "block";
+					break;
+
+				case 2:
+					buttonLogoff()
+					break;
+
+				case 3:
+
+					var dashboardButtonMenu = document.getElementById('dashboard-btn');
+					dashboardButtonMenu.className = 'nav-link';
+
+					var meusjogosbtn = document.getElementById('meusjogos-btn');
+					meusjogosbtn.className = 'nav-link';
+
+					var meusjogosbtn = document.getElementById('botaoAdmin');
+					meusjogosbtn.className += 'text-dark active';
+
+					document.getElementById('dashboard').style.display = "none";
+					document.getElementById('listajogosusuario').style.display = "none";
+					document.getElementById('telaadmin').style.display = "block";
+
 					break;
 				default:
 					break;
 			}
-			console.log('daosidjaodijadoiasjdoija')
 		}
 		myFunction();
 	</script>
@@ -210,6 +244,7 @@
 	<script type="text/babel" src="js/dashboard.controller.js"></script>
 	<script type="text/babel" src="js/listajogos.controller.js"></script>
 	<script type="text/babel" src="js/fotojogador.controller.js"></script>
+	<script type="text/babel" src="js/telaadmin.controller.js"></script>
 
 </body>
 

@@ -78,11 +78,9 @@ router.post("/acao/login", (req, res) => {
 });
 
 router.post("/verificar_login", (req, res) => {
-
   callbackResult = (result) => {
     res.json({ result })
   }
-
   UsuarioController.verificarLogin(req.body.token, callbackResult);
 });
 
@@ -108,6 +106,21 @@ router.get("/jogo/listar", (req, res) => {
   }
   ProdutoController.selectAllProdutos(callback);
 });
+
+router.get("/usuario/calculoDashboard/:id", (req, res) => {
+  function callback(row) {
+    res.json(row);
+  }
+  UsuarioController.calculoDashboardUsuario(req.params.id, callback)
+});
+
+router.get("/usuario/verificarTipo/:id", (req, res) => {
+  function callback(returnResp) {
+    res.json(returnResp);
+  }
+  UsuarioController.verificarTipo(req.params.id, callback);
+});
+
 
 router.get("/jogo/listar/:id", (req, res) => {
   function callback(row) {

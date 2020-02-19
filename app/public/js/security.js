@@ -48,3 +48,25 @@ function verifyUserLogged(objetSecurity, view = 'login') {
     }
   }
 }
+
+
+function verifyUserType() {
+  let userLogged = getUserLogged();
+  $.ajax({
+    type: "GET",
+    url: `http://${window.location.host}/usuario/verificarTipo/${userLogged.userLogadoObject.id}`,
+    success: (resp) => {
+      if (resp === true) {
+        document.getElementById('botaoAdmin').style.display = 'block';
+      }
+    },
+  });
+}
+verifyUserType();
+
+
+function buttonLogoff() {
+  localStorage.removeItem('user_desafio');
+  localStorage.removeItem('token_login_desafio');
+  window.location.href = `http://${window.location.host}/`
+}

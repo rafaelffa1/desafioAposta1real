@@ -48,6 +48,49 @@ exports.verificarLogin = async function (token, callbackResult) {
   UsuariosModel.selectAllUsuarios(callback);
 }
 
+exports.calculoDashboardUsuario = async function (idUsuario, callback) {
+  async function callbackDashboard(rows) {
+    let pontuacao = 0;
+    let dinheiro = 0;
+    let todosJogadoresPontuacao = [];
+    let rankUsuarioLogado = 0;
+
+    const usuarioLogado = rows.filter(usuario => { return usuario.ID == idUsuario });
+
+    pontuacao = usuarioLogado[0].pontucao;
+    dinheiro = usuarioLogado[0].coins;
+
+    for (let index = 0; index < rows.length; index++) {
+      const element = rows[index];
+      todosJogadoresPontuacao.push({
+        id: element.ID,
+        nome: element.nome_usuario,
+        pontuacao: element.pontucao,
+        foto: element.foto
+      })
+    }
+
+    todosJogadoresPontuacao.sort(function (a, b) {
+      if (a.pontucao == b.pontucao) return 0;
+      if (a.pontucao > b.pontucao) return -1;
+      return 1;
+    })
+
+    for (let index = 0; index < todosJogadoresPontuacao.length; index++) {
+      const element = todosJogadoresPontuacao[index];
+      if (element.id === idUsuario) {
+        rankUsuarioLogado = index;
+        break;
+      }
+    }
+
+    const infoUsuarioLogadoDashboard = { pontuacao, dinheiro, rankUsuarioLogado, todosJogadoresPontuacao }
+    callback(infoUsuarioLogadoDashboard)
+  }
+
+  UsuariosModel.selectAllUsuarios(callbackDashboard);
+}
+
 
 exports.deleteUsuarios = async function (idProduto) {
   UsuariosModel.deleteUsuarios(idProduto);
@@ -68,4 +111,16 @@ exports.loginUsuario = async function (usuario, callbackReturnHash) {
       callbackReturnHash(hash, usuario)
     });
   });
+}
+
+exports.verificarTipo = async function (id, callbackReturn) {
+  function callback(usuarios) {
+    for (let index = 0; index < usuarios.length; index++) {
+      const usuario = usuarios[index];
+      if (usuario.ID === parseInt(id) && parseInt(usuario.tipo_usuario) === 0) {
+        callbackReturn(true)
+      }
+    }
+  }
+  UsuariosModel.selectAllUsuarios(callback);
 }
